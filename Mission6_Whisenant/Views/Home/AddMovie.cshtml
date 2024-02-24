@@ -1,4 +1,4 @@
-﻿@model Mission6_Whisenant.Models.MovieCollection
+﻿@model Mission6_Whisenant.Models.Movie
 
 @{
     ViewData["Title"] = "Add Movie";
@@ -8,12 +8,16 @@
 <h6>I guess we will allows it.</h6>
 
 <form method="post">
-    <label asp-for="Category">Category</label>
-    <input asp-for="Category" type="text" required />
-    <br />
-    <br />
-    <label asp-for="Subcategory">Subcategory</label>
-    <input asp-for="Subcategory" type="text" />
+
+    <input type="hidden" asp-for="MovieId"/>
+
+    <select asp-for="CategoryId">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select>
     <br />
     <br />
     <label asp-for="Title">Title</label>
@@ -25,7 +29,7 @@
     <br />
     <br />
     <label asp-for="Director">Director</label>
-    <input asp-for="Director" type="text" required />
+    <input asp-for="Director" type="text" />
     <br />
     <br />
     <label asp-for="Rating">Rating:</label>
@@ -48,7 +52,16 @@
     <input asp-for="LentTo" type="text" />
     <br />
     <br />
+    <label asp-for="CopiedToPlex">Copied to Plex</label>
+    <select asp-for="CopiedToPlex">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br />
+    <br />
     <label asp-for="Notes">Notes</label>
     <input asp-for="Notes" type="text" maxlength="25" />
     <button type="submit">Add Movie</button>
+
+    <div asp-validation-summary="All"></div>
 </form>
